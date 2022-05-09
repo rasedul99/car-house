@@ -1,7 +1,8 @@
 import React from "react";
-import { Button, Card } from "react-bootstrap";
+import { Card } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
-const Item = () => {
+const Item = ({ item }) => {
   return (
     <div>
       <Card style={{ width: "18rem" }}>
@@ -19,7 +20,9 @@ const Item = () => {
           <Card.Text>Price :$20</Card.Text>
           <Card.Text>Quantity :20</Card.Text>
           <Card.Text>Supplier Name :rased</Card.Text>
-          <Button variant="primary">Manage</Button>
+          <Link to={`/inventory/1`} variant="primary">
+            Manage
+          </Link>
         </Card.Body>
       </Card>
     </div>
