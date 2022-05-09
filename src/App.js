@@ -7,7 +7,7 @@ import SignUp from "./Pages/SignUp/SignUp";
 
 function App() {
   return (
-    <div className="App container">
+    <div className="App ">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/blogs" element={<Blogs />} />
