@@ -1,5 +1,6 @@
 import React from "react";
 import { Col, Row } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import Item from "../Item/Item";
 
 const Items = () => {
@@ -19,6 +20,7 @@ const Items = () => {
           <Item />
         </Col>
       </Row>
+      <Link to="/manage-inventories">Manage Inventories</Link>
     </div>
   );
 };
