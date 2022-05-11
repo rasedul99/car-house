@@ -1,11 +1,14 @@
 import React, { useRef } from "react";
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
-import { Navigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import SocialLogin from "../../components/SocialLogin";
 import auth from "../../firebase";
 import "./SignIn.css";
 
 const SignIn = () => {
+  let location = useLocation();
+  let navigate = useNavigate();
+  let from = location.state?.from?.pathname || "/";
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
   const emailRef = useRef();
@@ -19,7 +22,7 @@ const SignIn = () => {
   };
   console.log(user);
   if (user) {
-    Navigate("/home");
+    navigate(from, { replace: true });
   }
   let errorElememt;
   if (error) {

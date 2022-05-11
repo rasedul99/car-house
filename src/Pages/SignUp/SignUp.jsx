@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { Navigate } from "react-router-dom";
 import auth from "../../firebase";
 import "./SignUp.css";
 const SignUp = () => {
@@ -16,6 +17,9 @@ const SignUp = () => {
 
     createUserWithEmailAndPassword(email, password);
   };
+  if (user) {
+    Navigate("/");
+  }
   return (
     <div className="form-container">
       <form onSubmit={handleSubmit}>
@@ -53,7 +57,7 @@ const SignUp = () => {
           </button>
         </div>
         <p className="forgot-password text-right">
-          Already registered <a href="/sign-in">sign in?</a>
+          Already registered <a href="/signin">sign in?</a>
         </p>
       </form>
     </div>
