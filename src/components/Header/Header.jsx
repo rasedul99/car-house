@@ -34,7 +34,7 @@ const Header = () => {
                 <Nav.Link as={Link} to="signin">
                   Add Item
                 </Nav.Link>
-                <Nav.Link as={Link} to="signin">
+                <Nav.Link as={Link} to="myitems">
                   My Items
                 </Nav.Link>
                 <button
