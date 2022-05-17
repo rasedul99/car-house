@@ -1,5 +1,6 @@
 import React from "react";
 import { Button, Container, Table } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const items = [
   {
@@ -39,7 +40,10 @@ const items = [
 const ManageInventories = () => {
   return (
     <Container>
-      <Button>Add New Item</Button>
+      <Link to="/add-product" className="btn btn-primary">
+        Add Product
+      </Link>
+
       <Table striped bordered hover size="sm">
         <thead>
           <tr>

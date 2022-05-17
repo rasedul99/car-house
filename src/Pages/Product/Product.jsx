@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Card } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import Restock from "../../components/Restock/Restock";
+import Layout from "../Layout";
 
 const Product = () => {
   const { id } = useParams();
@@ -21,9 +22,9 @@ const Product = () => {
     fetch();
   }, []);
   return (
-    <>
-      <div>
-        <Card style={{ width: "18rem" }}>
+    <Layout>
+      <div className="container my-5">
+        <Card>
           <Card.Img
             variant="top"
             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSltHynfdhMdy3DsmIkKF2IrvNoA1eyDRrJy_BO4nLmoK3Ig9rhkPk1l5OvVza_0TU8Czk&usqp=CAU"
@@ -41,9 +42,9 @@ const Product = () => {
             <Button variant="primary">delivered</Button>
           </Card.Body>
         </Card>
+        <Restock props="name" />
       </div>
-      <Restock />
-    </>
+    </Layout>
   );
 };
 

@@ -1,12 +1,21 @@
 import React from "react";
+import { useForm } from "react-hook-form";
 
 const Restock = () => {
+  const { register, handleSubmit } = useForm();
+  const handleRegistration = (data) => console.log(data.number);
   return (
     <div>
-      <form>
-        <label for="quantity">Quantity (between 1 and 5):</label>
-       
-        <input type="submit" value="Submit" />
+      <form onSubmit={handleSubmit(handleRegistration)}>
+        <div>
+          <label>Restock The items</label>
+          <input type="number" name="number" {...register("number")} />
+          <input
+            className="btn btn-primary"
+            type="submit"
+            value="Submit"
+          ></input>
+        </div>
       </form>
     </div>
   );

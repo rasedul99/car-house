@@ -23,15 +23,19 @@ const Header = () => {
               style={{ maxHeight: "100px" }}
               navbarScroll
             >
-              <Nav.Link href="#action1">Home</Nav.Link>
-              <Nav.Link href="#action2">Blog</Nav.Link>
+              <Nav.Link as={Link} to="/">
+                Home
+              </Nav.Link>
+              <Nav.Link as={Link} to="/blogs">
+                Blog
+              </Nav.Link>
             </Nav>
             {user ? (
               <>
-                <Nav.Link as={Link} to="signin">
+                <Nav.Link as={Link} to="manage-inventories">
                   Manage Items
                 </Nav.Link>
-                <Nav.Link as={Link} to="signin">
+                <Nav.Link as={Link} to="additem">
                   Add Item
                 </Nav.Link>
                 <Nav.Link as={Link} to="myitems">
