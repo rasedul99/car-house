@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import MyItems from "./components/MyItems";
 import RequiredAuth from "./components/RequireAuth";
-import AddProduct from "./Pages/AddProduct/AddProduct";
+import AddInventoryItem from "./Pages/AddProduct/AddInventoryItem";
 import Blogs from "./Pages/Blogs/Blogs";
 import Home from "./Pages/Home/Home";
 import ManageInventories from "./Pages/ManageInventories/ManageInventories";
@@ -35,7 +35,7 @@ function App() {
           }
         />
         <Route path="/manage-inventories" element={<ManageInventories />} />
-        <Route path="/add-product" element={<AddProduct />} />
+        <Route path="/add-inventory-item" element={<AddInventoryItem />} />
 
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />

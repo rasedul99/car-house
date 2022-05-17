@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Item from "../Item/Item";
 const fakeData = [
@@ -45,18 +44,20 @@ const Items = () => {
   console.log(products);
 
   return (
-    <Container>
-      <Row>
-        {products.map((product) => (
-          <Item product={product} key={product.id} />
-        ))}
-      </Row>
-      <div className="text-center my-3">
-        <Link to="/manage-inventories" className="btn btn-primary ">
+    <div>
+      <div className="container">
+        <div className="row">
+          {products.map((product) => (
+            <Item product={product} key={product.id} />
+          ))}
+        </div>
+      </div>
+      <div className="my-3 text-end">
+        <Link to="/manage-inventories" className="btn btn-primary  ">
           Manage Inventories
         </Link>
       </div>
-    </Container>
+    </div>
   );
 };
 

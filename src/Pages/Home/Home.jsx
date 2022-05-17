@@ -11,19 +11,32 @@ const Home = () => {
     <div>
       <Layout>
         <Banner />
-        <h3 className="text-center my-3">My Items</h3>
-        <Items />
-        <h3 className="text-center my-3">Recent Blog</h3>
-        <div className="my-3">
-          <BlogCard
-            img="https://image.shutterstock.com/image-photo/auto-check-car-service-shop-600w-1701289168.jpg"
-            title="hello"
-            description="Lorem5"
-          />
-        </div>
 
-        <AboutUs />
-        <NewsLetter />
+        <div className="container my-2">
+          <h3 className="text-center mt-2">My Items</h3>
+          <Items />
+          <h3 className="text-center my-3">Recent Blog</h3>
+          <div className="my-3  row ">
+            <BlogCard
+              img="https://image.shutterstock.com/image-photo/auto-check-car-service-shop-600w-1701289168.jpg"
+              title="hello"
+              description="Lorem5"
+            />
+            <BlogCard
+              img="https://image.shutterstock.com/image-photo/auto-check-car-service-shop-600w-1701289168.jpg"
+              title="hello"
+              description="Lorem5"
+            />
+            <BlogCard
+              img="https://image.shutterstock.com/image-photo/auto-check-car-service-shop-600w-1701289168.jpg"
+              title="hello"
+              description="Lorem5"
+            />
+          </div>
+
+          <AboutUs />
+          <NewsLetter />
+        </div>
       </Layout>
     </div>
   );

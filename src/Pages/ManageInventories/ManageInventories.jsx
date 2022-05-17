@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Container, Table } from "react-bootstrap";
+import { Button, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 const items = [
@@ -39,10 +39,12 @@ const items = [
 
 const ManageInventories = () => {
   return (
-    <Container>
-      <Link to="/add-product" className="btn btn-primary">
-        Add Product
-      </Link>
+    <div className="container my-5">
+      <div className="text-center mb-2">
+        <Link to="/add-inventory-item" className="btn btn-primary ">
+          Add Product
+        </Link>
+      </div>
 
       <Table striped bordered hover size="sm">
         <thead>
@@ -73,7 +75,7 @@ const ManageInventories = () => {
           })}
         </tbody>
       </Table>
-    </Container>
+    </div>
   );
 };
 

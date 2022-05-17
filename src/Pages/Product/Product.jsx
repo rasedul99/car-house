@@ -21,6 +21,9 @@ const Product = () => {
     };
     fetch();
   }, []);
+  const reduceByOne = () => {
+    let newQuantity = product.quantity - 1;
+  };
   return (
     <Layout>
       <div className="container my-5">
@@ -39,7 +42,9 @@ const Product = () => {
             <Card.Text>Price :$20</Card.Text>
             <Card.Text>Quantity :20</Card.Text>
             <Card.Text>Supplier Name :rased</Card.Text>
-            <Button variant="primary">delivered</Button>
+            <Button variant="primary" onClick={reduceByOne}>
+              delivered
+            </Button>
           </Card.Body>
         </Card>
         <Restock props="name" />
