@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Table } from "react-bootstrap";
+import { Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 const items = [
@@ -68,7 +68,11 @@ const ManageInventories = () => {
                 <td>{item.Total}</td>
                 <td>{item.supplier}</td>
                 <td>
-                  <Button>Delete</Button>
+                  <input
+                    type="button"
+                    value="Delete"
+                    className="btn btn-danger"
+                  />
                 </td>
               </tr>
             );

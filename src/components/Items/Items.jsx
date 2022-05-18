@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Item from "../Item/Item";
 const fakeData = [
@@ -40,15 +40,23 @@ const fakeData = [
   },
 ];
 const Items = () => {
-  const [products, setProducts] = useState(fakeData);
-  console.log(products);
+  const [cars, setCars] = useState([]);
+  console.log(cars);
+  useEffect(() => {
+    fetch("http://localhost:5000/allcars")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setCars(data.data);
+      });
+  }, []);
 
   return (
     <div>
       <div className="container">
         <div className="row">
-          {products.map((product) => (
-            <Item product={product} key={product.id} />
+          {cars.map((car) => (
+            <Item car={car} key={car._id} />
           ))}
         </div>
       </div>

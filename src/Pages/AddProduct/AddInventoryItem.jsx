@@ -3,7 +3,29 @@ import { useForm } from "react-hook-form";
 
 const AddInventoryItem = () => {
   const { register, handleSubmit } = useForm();
-  const handleRegistration = (data) => console.log(data);
+  const handleRegistration = (data) => {
+    console.log(data);
+    // axios({
+    //   method: "post",
+    //   url: "http://localhost:5000/carHouse",
+    //   data: data,
+    // })
+    //   .then(function (response) {
+    //     console.log(response);
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //   });
+    fetch("http://localhost:5000/carHouse", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data));
+  };
 
   return (
     <div className="w-50 mx-auto my-5">
@@ -81,7 +103,7 @@ const AddInventoryItem = () => {
           <input
             type="submit"
             value="Add New Product"
-            className="btn btn-success rounded-pill p-3"
+            className="btn btn-primary rounded-pill p-3"
           />
         </div>
       </form>
