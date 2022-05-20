@@ -32,13 +32,14 @@ const Header = () => {
             </Nav>
             {user ? (
               <>
-                <Nav.Link as={Link} to="manage-inventories">
+                <Nav.Link as={Link} to="/manage-inventories">
                   Manage Items
                 </Nav.Link>
-                <Nav.Link as={Link} to="additem">
+                <Nav.Link as={Link} to="/additem">
                   Add Item
                 </Nav.Link>
-                <Nav.Link as={Link} to="myitems">
+
+                <Nav.Link as={Link} to="/myitem">
                   My Items
                 </Nav.Link>
                 <button

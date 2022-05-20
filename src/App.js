@@ -1,10 +1,10 @@
 import { Route, Routes } from "react-router-dom";
-import MyItems from "./components/MyItems";
 import RequiredAuth from "./components/RequireAuth";
 import AddInventoryItem from "./Pages/AddProduct/AddInventoryItem";
 import Blogs from "./Pages/Blogs/Blogs";
 import Home from "./Pages/Home/Home";
 import ManageInventories from "./Pages/ManageInventories/ManageInventories";
+import MyItem from "./Pages/MyItem/MyItem";
 import NotFound from "./Pages/NotFound/NotFound";
 import Product from "./Pages/Product/Product";
 import SignIn from "./Pages/SignIn/SignIn";
@@ -26,16 +26,24 @@ function App() {
           }
         />
         <Route
-          path="/myitems"
+          path="/myitem"
           element={
             <RequiredAuth>
               {" "}
-              <MyItems />
+              <MyItem />
             </RequiredAuth>
           }
         />
         <Route path="/manage-inventories" element={<ManageInventories />} />
-        <Route path="/add-inventory-item" element={<AddInventoryItem />} />
+        <Route
+          path="/add-inventory-item"
+          element={
+            <RequiredAuth>
+              {" "}
+              <AddInventoryItem />
+            </RequiredAuth>
+          }
+        />
 
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />

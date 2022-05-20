@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import SocialLogin from "../../components/SocialLogin";
 import auth from "../../firebase";
 import "./SignIn.css";
@@ -13,17 +13,29 @@ const SignIn = () => {
     useSignInWithEmailAndPassword(auth);
   const emailRef = useRef();
   const passwordRef = useRef();
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
     signInWithEmailAndPassword(email, password);
+    fetch("http://localhost:5000/login", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({ email }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        localStorage.setItem("accessToken", data.accessToken);
+        navigate(from, { replace: true });
+      });
   };
-  console.log(user);
-  if (user) {
-    navigate(from, { replace: true });
-  }
+  // if (user) {
+  //   navigate(from, { replace: true });
+  // }
   let errorElememt;
   if (error) {
     errorElememt = (
@@ -65,6 +77,15 @@ const SignIn = () => {
         </p>
       </form>
       {errorElememt}
+      <p>
+        New to carhouse?
+        <Link
+          to="/signup"
+          className="text-primary pe-auto text-decoration-none"
+        >
+          Please Register
+        </Link>
+      </p>
       <SocialLogin />
     </div>
   );

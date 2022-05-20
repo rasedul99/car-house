@@ -1,21 +1,18 @@
 import React from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { useForm } from "react-hook-form";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import auth from "../../firebase";
 
 const AddInventoryItem = () => {
-  const { register, handleSubmit } = useForm();
-  const handleRegistration = (data) => {
-    console.log(data);
-    // axios({
-    //   method: "post",
-    //   url: "http://localhost:5000/carHouse",
-    //   data: data,
-    // })
-    //   .then(function (response) {
-    //     console.log(response);
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
+  const [user] = useAuthState(auth);
+  console.log(user.email);
+  const { register, handleSubmit, reset } = useForm();
+
+  const handleRegistration = (result) => {
+    const data = { ...result, email: user.email };
+
     fetch("http://localhost:5000/carHouse", {
       method: "POST",
       headers: {
@@ -24,13 +21,21 @@ const AddInventoryItem = () => {
       body: JSON.stringify(data),
     })
       .then((res) => res.json())
-      .then((data) => console.log(data));
+      .then((data) => {
+        if (data.success) {
+          toast(`${data.message}`);
+          reset();
+        } else {
+          toast("failed to insert");
+        }
+      });
   };
 
   return (
     <div className="w-50 mx-auto my-5">
       <form onSubmit={handleSubmit(handleRegistration)}>
         <div className="row">
+          <ToastContainer />
           <input
             className="p-2 my-2 rounded-pill"
             name="productname"

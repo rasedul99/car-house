@@ -1,43 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
-
-const items = [
-  {
-    productname: "toyota",
-    email: "mdrased1010@gmail.com",
-    Qty: 30,
-    Price: 50,
-    Total: 350,
-    supplier: "rased",
-  },
-  {
-    productname: "hjufkjsk",
-    email: "mdrased1011@gmail.com",
-    Qty: 30,
-    Price: 50,
-    Total: 350,
-    supplier: "rased",
-  },
-  {
-    productname: "audi",
-    email: "mdrased1012@gmail.com",
-    Qty: 50,
-    Price: 100,
-    Total: 250,
-    supplier: "rudra",
-  },
-  {
-    productname: "toyota",
-    email: "mdrased1013@gmail.com",
-    Qty: 30,
-    Price: 50,
-    Total: 350,
-    supplier: "rased",
-  },
-];
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ManageInventories = () => {
+  const [cars, setCars] = useState([]);
+  useEffect(() => {
+    fetch("http://localhost:5000/allcars")
+      .then((res) => res.json())
+      .then((data) => {
+        setCars(data.data);
+      });
+  }, []);
+
+  const deleteHandler = (id) => {
+    const proceed = window.confirm("are you sure want to delete");
+    console.log(proceed);
+    if (proceed) {
+      const url = `http://localhost:5000/car/${id}`;
+      fetch(url, { method: "DELETE" })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.deletedCount > 0) {
+            toast("Deleted succesfuly");
+            const remaining = cars.filter((cars) => cars._id !== id);
+            setCars(remaining);
+          }
+        });
+    }
+  };
+
   return (
     <div className="container my-5">
       <div className="text-center mb-2">
@@ -45,12 +38,12 @@ const ManageInventories = () => {
           Add Product
         </Link>
       </div>
-
+      <ToastContainer />
       <Table striped bordered hover size="sm">
         <thead>
           <tr>
             <th>Product name</th>
-            <th>Email</th>
+
             <th>Quantity</th>
             <th>Price</th>
             <th>Total</th>
@@ -58,17 +51,20 @@ const ManageInventories = () => {
           </tr>
         </thead>
         <tbody>
-          {items.map((item) => {
+          {cars?.map((car) => {
             return (
               <tr>
-                <td>{item.productname}</td>
-                <td>{item.email}</td>
-                <td>{item.Qty}</td>
-                <td>${item.Price}</td>
-                <td>{item.Total}</td>
-                <td>{item.supplier}</td>
+                <td>{car.productname}</td>
+
+                <td>{car.quantity}</td>
+                <td>${car.price}</td>
+                <td>{car.quantity}</td>
+                <td>{car.suppliername}</td>
                 <td>
                   <input
+                    onClick={() => {
+                      deleteHandler(car._id);
+                    }}
                     type="button"
                     value="Delete"
                     className="btn btn-danger"

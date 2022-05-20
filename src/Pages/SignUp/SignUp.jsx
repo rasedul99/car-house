@@ -1,9 +1,12 @@
 import React, { useRef } from "react";
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
-import { Navigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import auth from "../../firebase";
 import "./SignUp.css";
 const SignUp = () => {
+  let location = useLocation();
+  let navigate = useNavigate();
+  let from = location.state?.from?.pathname || "/";
   const [createUserWithEmailAndPassword, user, loading, error] =
     useCreateUserWithEmailAndPassword(auth);
   const nameRef = useRef();
@@ -18,7 +21,7 @@ const SignUp = () => {
     createUserWithEmailAndPassword(email, password);
   };
   if (user) {
-    Navigate("/");
+    navigate(from, { replace: true });
   }
   return (
     <div className="form-container">

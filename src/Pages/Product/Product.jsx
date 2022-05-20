@@ -1,53 +1,99 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { Button, Card } from "react-bootstrap";
+import React from "react";
+import { Card } from "react-bootstrap";
 import { useParams } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Restock from "../../components/Restock/Restock";
+import { useFetch } from "../../hook/useFetch";
 import Layout from "../Layout";
 
 const Product = () => {
   const { id } = useParams();
-  const [product, SetProduct] = useState({});
-  useEffect(() => {
-    const fetch = async () => {
-      try {
-        const { data } = await axios.get(
-          `https://jsonplaceholder.typicode.com/posts/${id}`
-        );
-        SetProduct(data);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    fetch();
-  }, []);
-  const reduceByOne = () => {
-    let newQuantity = product.quantity - 1;
+  const [car, setCar] = useFetch(id);
+
+  const updateStock = (value) => {
+    const currentStock = parseInt(car.quantity) + parseInt(value);
+    const url = `http://localhost:5000/carupdate/${id}`;
+
+    fetch(url, {
+      method: "PUT",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({ newquantity: currentStock }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.acknowledged) {
+          toast("successfuly updated");
+          setCar(car);
+        }
+      });
+  };
+
+  const updateSoldItem = (id) => {
+    const currentSoldItem = parseInt(car.soldItem) + 1;
+    const currentStock = parseInt(car.quantity) - 1;
+    const url = `http://localhost:5000/carhouse/solditemupdate/${id}`;
+    fetch(url, {
+      method: "PUT",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({
+        newSoldItem: currentSoldItem,
+        newStock: currentStock,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.acknowledged) {
+          toast("successfuly updated");
+          setCar(car);
+        }
+      });
   };
   return (
     <Layout>
-      <div className="container my-5">
-        <Card>
-          <Card.Img
-            variant="top"
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSltHynfdhMdy3DsmIkKF2IrvNoA1eyDRrJy_BO4nLmoK3Ig9rhkPk1l5OvVza_0TU8Czk&usqp=CAU"
-          />
-          <Card.Body>
-            <Card.Title>2011 Mini Countryman COOPER S</Card.Title>
-            <Card.Text>
-              THIS ATTRACTIVE COOPER S COUNTRYMAN IS NOW AVAILABLE. 5 DOOR,
-              TURBO AND ALLOYS... THIS IS A LOVELY EXAMPLE AND DRIVES WELL. WITH
-              DARK TRIM, MULTIPLE AIRBAGS AND CAM CHAIN RELIABILITY.
-            </Card.Text>
-            <Card.Text>Price :$20</Card.Text>
-            <Card.Text>Quantity :20</Card.Text>
-            <Card.Text>Supplier Name :rased</Card.Text>
-            <Button variant="primary" onClick={reduceByOne}>
-              delivered
-            </Button>
-          </Card.Body>
-        </Card>
-        <Restock props="name" />
+      <div className="container my-5 ">
+        <ToastContainer />
+        <div className="row">
+          <div className="col col-md-8">
+            <Card>
+              <div>
+                <Card.Img variant="top" src={car?.image} />
+              </div>
+
+              <Card.Body>
+                <div className="d-flex justify-content-between">
+                  <p>ID:{car._id}</p>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      updateSoldItem(car._id);
+                    }}
+                    class="btn btn-outline-primary"
+                  >
+                    Delevired
+                  </button>
+                </div>
+
+                <Card.Text>Price :${car.price}</Card.Text>
+                <Card.Title>Tittle:{car.productname}</Card.Title>
+                <Card.Text>{car.description}</Card.Text>
+                <div className="d-flex justify-content-between">
+                  <Card.Text>Supplier:{car.suppliername}</Card.Text>
+                  <Card.Text>Sold:{car.soldItem}</Card.Text>
+                  <Card.Text>Stock:{car.quantity}</Card.Text>
+                </div>
+              </Card.Body>
+            </Card>
+          </div>
+          <div className="col col-md-4">
+            <Restock updateStock={updateStock} />
+          </div>
+        </div>
       </div>
     </Layout>
   );
