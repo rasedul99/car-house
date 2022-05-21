@@ -18,7 +18,7 @@ const Items = () => {
         <h3 className="text-center my-3">inventory items</h3>
 
         <div className="row">
-          {cars.slice(0, 7)?.map((car) => (
+          {cars.slice(0, 6)?.map((car) => (
             <Item car={car} key={car._id} />
           ))}
         </div>
