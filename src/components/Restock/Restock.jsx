@@ -13,7 +13,7 @@ const Restock = ({ updateStock }) => {
     <div>
       <form onSubmit={handleSubmit(handleRegistration)}>
         <div>
-          <h5>Add Stock Item :</h5>
+          <h5>Restock the items:</h5>
           <div>
             <input
               type="number"

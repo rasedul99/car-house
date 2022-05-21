@@ -1,6 +1,6 @@
 import React from "react";
 import { Card } from "react-bootstrap";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Restock from "../../components/Restock/Restock";
@@ -13,7 +13,7 @@ const Product = () => {
 
   const updateStock = (value) => {
     const currentStock = parseInt(car.quantity) + parseInt(value);
-    const url = `http://localhost:5000/carupdate/${id}`;
+    const url = `https://radiant-lake-83898.herokuapp.com/carupdate/${id}`;
 
     fetch(url, {
       method: "PUT",
@@ -35,7 +35,7 @@ const Product = () => {
   const updateSoldItem = (id) => {
     const currentSoldItem = parseInt(car.soldItem) + 1;
     const currentStock = parseInt(car.quantity) - 1;
-    const url = `http://localhost:5000/carhouse/solditemupdate/${id}`;
+    const url = `https://radiant-lake-83898.herokuapp.com/carhouse/solditemupdate/${id}`;
     fetch(url, {
       method: "PUT",
       headers: {
@@ -92,6 +92,14 @@ const Product = () => {
           </div>
           <div className="col col-md-4">
             <Restock updateStock={updateStock} />
+            <div className="my-3 ">
+              <Link
+                to="/manage-inventories"
+                className="btn btn-outline-primary w-100 "
+              >
+                Manage Inventories
+              </Link>
+            </div>
           </div>
         </div>
       </div>

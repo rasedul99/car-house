@@ -7,7 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 const ManageInventories = () => {
   const [cars, setCars] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:5000/allcars")
+    fetch("https://radiant-lake-83898.herokuapp.com/allcars")
       .then((res) => res.json())
       .then((data) => {
         setCars(data.data);
@@ -18,7 +18,7 @@ const ManageInventories = () => {
     const proceed = window.confirm("are you sure want to delete");
     console.log(proceed);
     if (proceed) {
-      const url = `http://localhost:5000/car/${id}`;
+      const url = `https://radiant-lake-83898.herokuapp.com/car/${id}`;
       fetch(url, { method: "DELETE" })
         .then((res) => res.json())
         .then((data) => {

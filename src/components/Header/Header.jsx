@@ -15,11 +15,13 @@ const Header = () => {
     <div>
       <Navbar bg="light" expand="lg">
         <Container fluid>
-          <Navbar.Brand href="#">Car House</Navbar.Brand>
+          <Navbar.Brand as={Link} to="/">
+            Car House
+          </Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
             <Nav
-              className="ms-auto my-2 my-lg-0"
+              className="ms-auto my-2 "
               style={{ maxHeight: "100px" }}
               navbarScroll
             >
@@ -29,30 +31,39 @@ const Header = () => {
               <Nav.Link as={Link} to="/blogs">
                 Blog
               </Nav.Link>
+              <Nav.Link as={Link} to="/about-us">
+                About us
+              </Nav.Link>
             </Nav>
             {user ? (
-              <>
+              <Nav>
                 <Nav.Link as={Link} to="/manage-inventories">
                   Manage Items
                 </Nav.Link>
-                <Nav.Link as={Link} to="/additem">
+                <Nav.Link as={Link} to="/add-inventory-item">
                   Add Item
                 </Nav.Link>
 
                 <Nav.Link as={Link} to="/myitem">
                   My Items
                 </Nav.Link>
-                <button
-                  className="btn btn-link  text-decoration-none"
-                  onClick={handleSignOut}
-                >
-                  Logout
-                </button>
-              </>
+                <div>
+                  <input
+                    onClick={handleSignOut}
+                    type="button"
+                    value="Logout"
+                    className="btn btn-outline-primary rounded-pill"
+                  />
+                </div>
+              </Nav>
             ) : (
-              <Nav.Link as={Link} to="signin">
-                Login
-              </Nav.Link>
+              <Nav>
+                <Nav.Link as={Link} to="/signin">
+                  <div className="btn btn-outline-primary rounded-pill">
+                    Login
+                  </div>
+                </Nav.Link>
+              </Nav>
             )}
           </Navbar.Collapse>
         </Container>

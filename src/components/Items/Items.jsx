@@ -5,7 +5,7 @@ const Items = () => {
   const [cars, setCars] = useState([]);
   console.log(cars);
   useEffect(() => {
-    fetch("http://localhost:5000/allcars")
+    fetch("https://radiant-lake-83898.herokuapp.com/allcars")
       .then((res) => res.json())
       .then((data) => {
         setCars(data.data);
@@ -15,13 +15,15 @@ const Items = () => {
   return (
     <div>
       <div className="container">
+        <h3 className="text-center my-3">inventory items</h3>
+
         <div className="row">
-          {cars?.map((car) => (
+          {cars.slice(0, 7)?.map((car) => (
             <Item car={car} key={car._id} />
           ))}
         </div>
       </div>
-      <div className="my-3 text-end">
+      <div className="my-3 text-center">
         <Link to="/manage-inventories" className="btn btn-primary  ">
           Manage Inventories
         </Link>

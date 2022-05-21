@@ -17,7 +17,7 @@ const SocialLogin = () => {
     );
   }
   if (user) {
-    // fetch("http://localhost:5000/login", {
+    // fetch("https://radiant-lake-83898.herokuapp.com/login", {
     //   method: "POST",
     //   headers: {
     //     "content-type": "application/json",

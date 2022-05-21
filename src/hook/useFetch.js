@@ -5,7 +5,7 @@ const useFetch = (id) => {
   const [car, setCar] = useState({});
   console.log(car);
   useEffect(() => {
-    fetch(`http://localhost:5000/carhouse/${id}`)
+    fetch(`https://radiant-lake-83898.herokuapp.com/carhouse/${id}`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -19,7 +19,7 @@ const useFetch = (id) => {
 // const useUpdateSoldItem = (id, car) => {
 //   const currentSoldItem = parseInt(car.soldItem) + 1;
 //   const currentStock = parseInt(car.quantity) - 1;
-//   const url = `http://localhost:5000/carhouse/solditemupdate/${id}`;
+//   const url = `https://radiant-lake-83898.herokuapp.com/carhouse/solditemupdate/${id}`;
 //   useEffect(() => {
 //     fetch(url, {
 //       method: "PUT",

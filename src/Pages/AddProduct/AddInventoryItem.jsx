@@ -13,7 +13,7 @@ const AddInventoryItem = () => {
   const handleRegistration = (result) => {
     const data = { ...result, email: user.email };
 
-    fetch("http://localhost:5000/carHouse", {
+    fetch("https://radiant-lake-83898.herokuapp.com/carHouse", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -38,6 +38,7 @@ const AddInventoryItem = () => {
           <ToastContainer />
           <input
             className="p-2 my-2 rounded-pill"
+            required
             name="productname"
             placeholder="Tittle"
             {...register("productname")}
@@ -45,6 +46,7 @@ const AddInventoryItem = () => {
 
           <input
             type="url"
+            required
             className="p-2 my-2 rounded-pill"
             placeholder="Input Url Link"
             name="image"
@@ -54,6 +56,7 @@ const AddInventoryItem = () => {
           <div className="row ">
             <input
               className="col-5 p-1 my-2 rounded-pill"
+              required
               placeholder="Product Price"
               type="number"
               name="price"
@@ -62,6 +65,7 @@ const AddInventoryItem = () => {
             <div className="col-2"></div>
             <input
               className="col-5 p-1 my-2 rounded-pill"
+              required
               placeholder="Quantity"
               type="number"
               name="quantity"
@@ -70,6 +74,7 @@ const AddInventoryItem = () => {
 
             <input
               className="col-5 p-1 my-2 rounded-pill"
+              required
               placeholder="Supplier Name"
               name="suppliername"
               {...register("suppliername")}
@@ -88,6 +93,7 @@ const AddInventoryItem = () => {
 
             <textarea
               style={{ width: "100%", height: "100px" }}
+              required
               name="description"
               className="p-1 my-2 rounded"
               placeholder="Details"

@@ -1,6 +1,10 @@
 import React, { useRef } from "react";
-import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
-import { useLocation, useNavigate } from "react-router-dom";
+import {
+  useCreateUserWithEmailAndPassword,
+  useSendEmailVerification,
+} from "react-firebase-hooks/auth";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import Loading from "../../components/Loading/Loading";
 import auth from "../../firebase";
 import "./SignUp.css";
 const SignUp = () => {
@@ -9,6 +13,8 @@ const SignUp = () => {
   let from = location.state?.from?.pathname || "/";
   const [createUserWithEmailAndPassword, user, loading, error] =
     useCreateUserWithEmailAndPassword(auth);
+  const [sendEmailVerification, sending, verifyError] =
+    useSendEmailVerification(auth);
   const nameRef = useRef();
   const emailRef = useRef();
   const passwordRef = useRef();
@@ -19,7 +25,16 @@ const SignUp = () => {
     const password = passwordRef.current.value;
 
     createUserWithEmailAndPassword(email, password);
+    sendEmailVerification();
+    alert("Sent  verification to your email");
   };
+  if (loading) {
+    return (
+      <div>
+        <Loading />
+      </div>
+    );
+  }
   if (user) {
     navigate(from, { replace: true });
   }
@@ -34,6 +49,7 @@ const SignUp = () => {
             ref={nameRef}
             className="form-control"
             placeholder=" name"
+            required
           />
         </div>
         <div className="mb-3">
@@ -43,6 +59,7 @@ const SignUp = () => {
             ref={emailRef}
             className="form-control"
             placeholder="Enter email"
+            required
           />
         </div>
         <div className="mb-3">
@@ -52,6 +69,7 @@ const SignUp = () => {
             ref={passwordRef}
             className="form-control"
             placeholder="Enter password"
+            required
           />
         </div>
         <div className="d-grid">
@@ -60,7 +78,13 @@ const SignUp = () => {
           </button>
         </div>
         <p className="forgot-password text-right">
-          Already registered <a href="/signin">sign in?</a>
+          Already registered ?
+          <Link
+            to="/signin"
+            className="text-primary pe-auto text-decoration-none"
+          >
+            Sign In
+          </Link>
         </p>
       </form>
     </div>

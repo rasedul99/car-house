@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 import auth from "../../firebase";
 
 const MyItem = () => {
@@ -11,7 +12,7 @@ const MyItem = () => {
   console.log(items);
   const [user] = useAuthState(auth);
   console.log(user.email);
-  const url = `http://localhost:5000/carhouse/mycar?email=${user.email}`;
+  const url = `https://radiant-lake-83898.herokuapp.com/carhouse/mycar?email=${user.email}`;
   useEffect(() => {
     const getMyItems = () => {
       fetch(url, {
@@ -31,8 +32,26 @@ const MyItem = () => {
     };
     getMyItems();
   }, []);
+  const deleteHandler = (id) => {
+    const proceed = window.confirm("are you sure want to delete");
+    console.log(proceed);
+    if (proceed) {
+      const url = `https://radiant-lake-83898.herokuapp.com/car/${id}`;
+      fetch(url, { method: "DELETE" })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.deletedCount > 0) {
+            toast("Deleted succesfuly");
+            const remaining = items.filter((item) => item._id !== id);
+            setItems(remaining);
+          }
+        });
+    }
+  };
   return (
-    <div className="container my-5">
+    <div className="container my-2">
+      <h3 className="text-center my-3">My items</h3>
+      <ToastContainer />
       <Table striped bordered hover size="sm">
         <thead>
           <tr>
@@ -55,9 +74,9 @@ const MyItem = () => {
                 <td>{item.suppliername}</td>
                 <td>
                   <input
-                    // onClick={() => {
-                    //   deleteHandler(item._id);
-                    // }}
+                    onClick={() => {
+                      deleteHandler(item._id);
+                    }}
                     type="button"
                     value="Delete"
                     className="btn btn-danger"
